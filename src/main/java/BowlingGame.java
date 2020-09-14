@@ -1,17 +1,24 @@
+import exception.FrameIllegalException;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class BowlingGame {
   private List<BowlingFrame> bowlingFrames;
   private BowlingFrame extraFrame;
+  private final String EXTRA_FRAME_SECOND_PARA_MUST_BE_TRUE = "额外轮的第二个参数必须为true";
+  private final String EXTRA_FRAME_ThROW_NUM_ERROR = "额外轮的投球次数错误";
+
 
   public BowlingGame(List<BowlingFrame> hitBowlingNumbers) {
     this.bowlingFrames = hitBowlingNumbers;
   }
 
   public BowlingGame(List<BowlingFrame> bowlingFrames, BowlingFrame extraFrame) {
-    this.bowlingFrames = bowlingFrames;
-    this.extraFrame = extraFrame;
+    if (isExtraFrameLegal(bowlingFrames, extraFrame)) {
+      this.bowlingFrames = bowlingFrames;
+      this.extraFrame = extraFrame;
+    }
   }
 
   public int calculateSumPoint() {
@@ -41,5 +48,21 @@ public class BowlingGame {
   private int calculateSparePoint(BowlingFrame nextFrame) {
     int sum = 10 + nextFrame.getFirstHitNum();
     return sum;
+  }
+
+  private boolean isExtraFrameLegal(List<BowlingFrame> bowlingFrames, BowlingFrame extraFrame) {
+    if (!extraFrame.isExtraFrame()) {
+      throw new FrameIllegalException(EXTRA_FRAME_SECOND_PARA_MUST_BE_TRUE);
+    }
+
+    if (bowlingFrames.get(bowlingFrames.size() - 1).isStrikeFrame() && extraFrame.getHitNumberList().size() != 2) {
+      throw new FrameIllegalException(EXTRA_FRAME_ThROW_NUM_ERROR);
+    }
+
+    if (bowlingFrames.get(-1).isSpareFrame() && extraFrame.getHitNumberList().size() != 1) {
+      throw new FrameIllegalException(EXTRA_FRAME_ThROW_NUM_ERROR);
+    }
+
+    return true;
   }
 }

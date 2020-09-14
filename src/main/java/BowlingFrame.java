@@ -27,6 +27,10 @@ public class BowlingFrame {
     return isExtraFrame;
   }
 
+  public List<Integer> getHitNumberList() {
+    return hitNumberList;
+  }
+
   public int getFirstHitNum() {
     return hitNumberList.get(0);
   }

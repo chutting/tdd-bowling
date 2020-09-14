@@ -102,5 +102,25 @@ public class BowlingGameTest {
     });
   }
 
+  @Test
+  void should_throw_exception_when_extra_frame_throw_num_illegal() {
+    assertThrows(FrameIllegalException.class, () -> {
+      new BowlingFrame(Arrays.asList(6, 7), true);
+    });
+  }
+
+  @Test
+  void should_throw_exception_when_extra_frame_throw_num_incorrect() {
+    List<BowlingFrame> bowlingFrameList = Arrays.asList(new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(3, 5)),
+        new BowlingFrame(Arrays.asList(4, 5)), new BowlingFrame(Arrays.asList(3, 3)),
+        new BowlingFrame(Arrays.asList(3, 7)), new BowlingFrame(Arrays.asList(1, 5)),
+        new BowlingFrame(Arrays.asList(3, 6)), new BowlingFrame(Arrays.asList(0, 0)),
+        new BowlingFrame(Arrays.asList(10)));
+    assertThrows(FrameIllegalException.class, () -> {
+      new BowlingGame(bowlingFrameList, new BowlingFrame(Arrays.asList(4), true));
+    });
+  }
+
 
 }
