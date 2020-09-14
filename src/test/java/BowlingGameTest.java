@@ -127,4 +127,29 @@ public class BowlingGameTest {
       new BowlingGame(bowlingFrameList);
     });
   }
+
+  @Test
+  void should_be_full_points_when_all_frames_point_ten() {
+    List<BowlingFrame> bowlingFrameList = Arrays.asList(new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)));
+    BowlingGame bowlingGame = new BowlingGame(bowlingFrameList, new BowlingFrame(Arrays.asList(10, 10), true));
+    assertEquals(300, bowlingGame.calculateSumPoint());
+  }
+
+  @Test
+  void given_no_strike_or_spare_then_no_bonus_point() {
+    List<BowlingFrame> bowlingFrameList = Arrays.asList(new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(3, 6)));
+    assertThrows(BowlingGameException.class, () -> {
+      new BowlingGame(bowlingFrameList).calculateSumPoint();
+    });
+  }
 }
