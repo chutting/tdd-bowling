@@ -21,7 +21,8 @@ public class BowlingGame {
         BowlingFrame nextFrame = (i == 9 ? extraFrame : bowlingFrames.get(i + 1));
         sum += calculateStrikePoint(i, nextFrame);
       } else if (bowlingFrames.get(i).isSpareFrame()) {
-        sum += calculateSparePoint(i);
+        BowlingFrame nextFrame = (i == 9 ? extraFrame : bowlingFrames.get(i + 1));
+        sum += calculateSparePoint(nextFrame);
       } else {
         sum += bowlingFrames.get(i).getHitNumberSum();
       }
@@ -37,8 +38,7 @@ public class BowlingGame {
     return sum;
   }
 
-  private int calculateSparePoint(int index) {
-    BowlingFrame nextFrame = bowlingFrames.get(index + 1);
+  private int calculateSparePoint(BowlingFrame nextFrame) {
     int sum = 10 + nextFrame.getFirstHitNum();
     return sum;
   }

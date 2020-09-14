@@ -53,4 +53,16 @@ public class BowlingGameTest {
     BowlingGame bowlingGame = new BowlingGame(bowlingFrameList, new BowlingFrame(Arrays.asList(4, 3), true));
     assertEquals(107, bowlingGame.calculateSumPoint());
   }
+
+  @Test
+  void should_add_bonus_point_when_10th_frame_is_spare() {
+    List<BowlingFrame> bowlingFrameList = Arrays.asList(new BowlingFrame(Arrays.asList(10, 0)),
+        new BowlingFrame(Arrays.asList(10, 0)), new BowlingFrame(Arrays.asList(3, 5)),
+        new BowlingFrame(Arrays.asList(4, 5)), new BowlingFrame(Arrays.asList(3, 3)),
+        new BowlingFrame(Arrays.asList(3, 7)), new BowlingFrame(Arrays.asList(1, 5)),
+        new BowlingFrame(Arrays.asList(3, 6)), new BowlingFrame(Arrays.asList(0, 0)),
+        new BowlingFrame(Arrays.asList(5, 5)));
+    BowlingGame bowlingGame = new BowlingGame(bowlingFrameList, new BowlingFrame(Arrays.asList(4), true));
+    assertEquals(104, bowlingGame.calculateSumPoint());
+  }
 }
