@@ -11,15 +11,12 @@ public class BowlingGame {
 
   public int calculateSumPoint() {
     int sum = 0;
-//    if (!hasBonusPointOrNot()) {
-//      sum = bowlingFrames.stream().collect(Collectors.summingInt(BowlingFrame::getHitNumberSum));
-//    }
 
     for (int i = 0; i < bowlingFrames.size(); i++) {
       if (bowlingFrames.get(i).isStrikeFrame()) {
         sum += calculateStrikePoint(i);
       } else if (bowlingFrames.get(i).isSpareFrame()) {
-        sum += 1;
+        sum += calculateSparePoint(i);
       } else {
         sum += bowlingFrames.get(i).getHitNumberSum();
       }
@@ -37,7 +34,9 @@ public class BowlingGame {
     return sum;
   }
 
-  private boolean hasBonusPointOrNot() {
-    return bowlingFrames.stream().anyMatch(bowlingFrame ->bowlingFrame.getHitNumberSum() == 10);
+  private int calculateSparePoint(int index) {
+    BowlingFrame nextFrame = bowlingFrames.get(index + 1);
+    int sum = 10 + nextFrame.getFirstHitNum();
+    return sum;
   }
 }
