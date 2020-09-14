@@ -1,3 +1,4 @@
+import exception.BowlingGameException;
 import exception.FrameIllegalException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -96,13 +97,6 @@ public class BowlingGameTest {
   }
 
   @Test
-  void should_throw_exception_when_extra_frame_is_illegal() {
-    assertThrows(FrameIllegalException.class, () -> {
-      new BowlingFrame(Arrays.asList(6, 7), true);
-    });
-  }
-
-  @Test
   void should_throw_exception_when_extra_frame_throw_num_illegal() {
     assertThrows(FrameIllegalException.class, () -> {
       new BowlingFrame(Arrays.asList(6, 7), true);
@@ -117,10 +111,20 @@ public class BowlingGameTest {
         new BowlingFrame(Arrays.asList(3, 7)), new BowlingFrame(Arrays.asList(1, 5)),
         new BowlingFrame(Arrays.asList(3, 6)), new BowlingFrame(Arrays.asList(0, 0)),
         new BowlingFrame(Arrays.asList(10)));
-    assertThrows(FrameIllegalException.class, () -> {
+    assertThrows(BowlingGameException.class, () -> {
       new BowlingGame(bowlingFrameList, new BowlingFrame(Arrays.asList(4), true));
     });
   }
 
-
+  @Test
+  void should_throw_exception_when_frame_number_is_not_10() {
+    List<BowlingFrame> bowlingFrameList = Arrays.asList(new BowlingFrame(Arrays.asList(10)),
+        new BowlingFrame(Arrays.asList(10)), new BowlingFrame(Arrays.asList(3, 5)),
+        new BowlingFrame(Arrays.asList(4, 5)), new BowlingFrame(Arrays.asList(3, 3)),
+        new BowlingFrame(Arrays.asList(3, 7)), new BowlingFrame(Arrays.asList(1, 5)),
+        new BowlingFrame(Arrays.asList(3, 6)), new BowlingFrame(Arrays.asList(0, 0)));
+    assertThrows(BowlingGameException.class, () -> {
+      new BowlingGame(bowlingFrameList);
+    });
+  }
 }
