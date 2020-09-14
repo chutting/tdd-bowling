@@ -94,4 +94,13 @@ public class BowlingGameTest {
       new BowlingFrame(Arrays.asList(3, -1));
     });
   }
+
+  @Test
+  void should_throw_exception_when_extra_frame_is_illegal() {
+    assertThrows(FrameIllegalException.class, () -> {
+      new BowlingFrame(Arrays.asList(6, 7), true);
+    });
+  }
+
+
 }
