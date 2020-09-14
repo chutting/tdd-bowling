@@ -17,4 +17,16 @@ public class BowlingGameTest {
     BowlingGame bowlingGame = new BowlingGame(bowlingFrameList);
     assertEquals(55, bowlingGame.calculateSumPoint());
   }
+
+  @Test
+  void should_add_bonus_point_when_strike_exist() {
+    List<BowlingFrame> bowlingFrameList = Arrays.asList(new BowlingFrame(1, Arrays.asList(10, 0)),
+        new BowlingFrame(1, Arrays.asList(10, 0)), new BowlingFrame(1, Arrays.asList(3, 5)),
+        new BowlingFrame(1, Arrays.asList(4, 5)), new BowlingFrame(1, Arrays.asList(3, 3)),
+        new BowlingFrame(1, Arrays.asList(3, 2)), new BowlingFrame(1, Arrays.asList(1, 5)),
+        new BowlingFrame(1, Arrays.asList(3, 6)), new BowlingFrame(1, Arrays.asList(0, 0)),
+        new BowlingFrame(1, Arrays.asList(0, 3)));
+    BowlingGame bowlingGame = new BowlingGame(bowlingFrameList);
+    assertEquals(87, bowlingGame.calculateSumPoint());
+  }
 }
