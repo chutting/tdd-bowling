@@ -3,12 +3,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BowlingFrame {
-  private List<Integer> hitNumberList = Arrays.asList(0, 0);
-  private int frameIndex;
+  private List<Integer> hitNumberList;
+  private boolean isExtraFrame = false;
 
-  public BowlingFrame(int frameIndex, List<Integer> hitNumber) {
+  public BowlingFrame(List<Integer> hitNumber) {
     this.hitNumberList = hitNumber;
-    this.frameIndex = frameIndex;
+  }
+
+  public BowlingFrame(List<Integer> hitNumberList, boolean isExtraFrame) {
+    this.hitNumberList = hitNumberList;
+    this.isExtraFrame = isExtraFrame;
+  }
+
+  public boolean isExtraFrame() {
+    return isExtraFrame;
   }
 
   public int getFirstHitNum() {
